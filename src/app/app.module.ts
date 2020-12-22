@@ -1,16 +1,39 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import { Injector, NgModule } from '@angular/core';
+import {RouterModule,Routes} from '@angular/router'
 import { AppComponent } from './app.component';
-
+import { MessageComponent } from './components/message.component';
+import { CardComponent } from './components/card.component';
+import { GameService } from './game.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {Globals} from './scenes/constants'
+const ROUTES: Routes = [
+  {path: '', component:MessageComponent },
+  {path: 'card', component: CardComponent},
+  {path: '**', redirectTo: '' , pathMatch: 'full'}
+]
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MessageComponent,
+
+    CardComponent,
+
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot(ROUTES, {
+      useHash:true
+    }),
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule
   ],
-  providers: [],
+  providers: [GameService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(private injector: Injector){
+    Globals.injector = injector
+  }
+}

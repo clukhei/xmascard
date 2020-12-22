@@ -1,0 +1,13 @@
+<h1>Season's Greeting 2020</h1>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="input-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Type your well wishes"
+      formControlName="greetings"
+    />
+  </div>
+
+  <button type="submit" class="btn btn-primary mt-3" [disabled]="form.invalid">Submit</button>
+</form>
